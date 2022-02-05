@@ -1,0 +1,1 @@
+`slurm.conf` and `cgroup.conf` should be shared among all nodes within the same cluster. It should be in `/etc/slurm-llnl` if slurm was installed via `apt`. `gres.conf` should only exist in the node that has the generic resource.
