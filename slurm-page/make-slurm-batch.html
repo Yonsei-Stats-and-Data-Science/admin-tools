@@ -34,13 +34,14 @@
             
             function submitinfo()           
             {   
-                var printme = "# !/bin/bash <br>" +
+                var printme = "#!/bin/bash <br>" +
                 "# <br>" +
                 "# SBATCH --job-name=" + document.config.job_name.value + "<br>" + 
                 "# SBATCH --mem=" + document.config.mem.value + "<br>" + 
                 "# SBATCH --ntasks=" + document.config.ntask.value + "<br>" + 
                 "# SBATCH --time=" + document.config.job_time.value + "<br>" + 
-                "<br>" + document.config.etc.value.replace(/(\n|\r\n)/g, '<br>')
+                "# SBATCH --output=/mnt/nas/users/" + document.config.id.value + "/" + document.config.job_name.value + ".log" + "<br>" + 
+                "<br>" + document.config.script.value.replace(/(\n|\r\n)/g, '<br>')
 
                 document.open();
                 document.write(printme);
@@ -49,13 +50,14 @@
 
             function printinfo()
             {
-                var printme = "# !/bin/bash <br>" +
+                var printme = "#!/bin/bash <br>" +
                 "# <br>" +
                 "# SBATCH --job-name=" + document.config.job_name.value + "<br>" + 
                 "# SBATCH --mem=" + document.config.mem.value + "<br>" + 
                 "# SBATCH --ntasks=" + document.config.ntask.value + "<br>" + 
                 "# SBATCH --time=" + document.config.job_time.value + "<br>" + 
-                "<br>" + document.config.etc.value.replace(/(\n|\r\n)/g, '<br>')
+                "# SBATCH --output=/mnt/nas/users/" + document.config.id.value + "/" + document.config.job_name.value + ".log" + "<br>" + 
+                "<br>" + document.config.script.value.replace(/(\n|\r\n)/g, '<br>')
                 
                 document.querySelector("#result").innerHTML = printme                
             }
@@ -104,8 +106,8 @@
                 <td><input type="text" name="id" size="12" value="username"></td> 
             </tr>
             <tr>
-                <td>ETC: </td> 
-                <td><textarea name="etc" rows="5" cols="30"></textarea></td>
+                <td>Script: </td> 
+                <td><textarea name="script" rows="5" cols="40" placeholder="conda activate ENVIRONMENT_NAME && python /mnt/nas/users/USERNAME/main.py"></textarea></td>
             </tr>
             <tr>
                 <td>
