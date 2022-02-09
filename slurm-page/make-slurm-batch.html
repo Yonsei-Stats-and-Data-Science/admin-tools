@@ -41,7 +41,7 @@
                 "# SBATCH --ntasks=" + document.config.ntask.value + "<br>" + 
                 "# SBATCH --time=" + document.config.job_time.value + "<br>" + 
                 "# SBATCH --output=/mnt/nas/users/" + document.config.id.value + "/" + document.config.job_name.value + ".log" + "<br>" + 
-                "<br>" + document.config.etc.value.replace(/(\n|\r\n)/g, '<br>')
+                "<br>" + document.config.script.value.replace(/(\n|\r\n)/g, '<br>')
 
                 document.open();
                 document.write(printme);
@@ -57,7 +57,7 @@
                 "# SBATCH --ntasks=" + document.config.ntask.value + "<br>" + 
                 "# SBATCH --time=" + document.config.job_time.value + "<br>" + 
                 "# SBATCH --output=/mnt/nas/users/" + document.config.id.value + "/" + document.config.job_name.value + ".log" + "<br>" + 
-                "<br>" + document.config.etc.value.replace(/(\n|\r\n)/g, '<br>')
+                "<br>" + document.config.script.value.replace(/(\n|\r\n)/g, '<br>')
                 
                 document.querySelector("#result").innerHTML = printme                
             }
@@ -107,7 +107,7 @@
             </tr>
             <tr>
                 <td>Script: </td> 
-                <td><textarea name="etc" rows="5" cols="40" placeholder="conda activate ENVIRONMENT_NAME && python /mnt/nas/users/USERNAME/main.py"></textarea></td>
+                <td><textarea name="script" rows="5" cols="40" placeholder="conda activate ENVIRONMENT_NAME && python /mnt/nas/users/USERNAME/main.py"></textarea></td>
             </tr>
             <tr>
                 <td>
