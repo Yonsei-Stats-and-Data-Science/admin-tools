@@ -41,14 +41,14 @@
                 "# SBATCH --ntasks=" + document.config.ntask.value + "<br>" + 
                 "# SBATCH --time=" + document.config.job_time.value + "<br>" + 
                 "# SBATCH --output=/mnt/nas/users/" + document.config.id.value + "/" + document.config.job_name.value + ".log" + "<br>" + 
-                "<br>" + document.config.script.placehorder.replace(/(\n|\r\n)/g, '<br>')
+                "<br>" + document.config.script.value.replace(/(\n|\r\n)/g, '<br>')
 
                 document.open();
                 document.write(printme);
                 document.close()
             }
 
-            function printinfo()
+            function printinfo(add='defalut')
             {
                 var printme = "#!/bin/bash <br>" +
                 "# <br>" +
@@ -57,9 +57,14 @@
                 "# SBATCH --ntasks=" + document.config.ntask.value + "<br>" + 
                 "# SBATCH --time=" + document.config.job_time.value + "<br>" + 
                 "# SBATCH --output=/mnt/nas/users/" + document.config.id.value + "/" + document.config.job_name.value + ".log" + "<br>" + 
-                "<br>" + document.config.script.placeholder.replace(/(\n|\r\n)/g, '<br>')
+                "<br>" + document.config.script.value.replace(/(\n|\r\n)/g, '<br>')
                 
-                document.querySelector("#result").innerHTML = printme                
+                if ( !document.config.script.value ) {
+                    document.querySelector("#result").innerHTML = printme + document.config.script.placeholder
+                } else {
+                    document.querySelector("#result").innerHTML = printme
+                }
+                                
             }
 
             function saveinfo()
@@ -75,12 +80,27 @@
                 alert("복사되었습니다. \n\n"+saveme);
             }
             
+            function resetinfo()
+            {
+                document.getElementById("config").reset();
+                
+                var printme = "#!/bin/bash <br>" +
+                "# <br>" +
+                "# SBATCH --job-name=" + document.config.job_name.value + "<br>" + 
+                "# SBATCH --mem=" + document.config.mem.value + "<br>" + 
+                "# SBATCH --ntasks=" + document.config.ntask.value + "<br>" + 
+                "# SBATCH --time=" + document.config.job_time.value + "<br>" + 
+                "# SBATCH --output=/mnt/nas/users/" + document.config.id.value + "/" + document.config.job_name.value + ".log" + "<br>" + 
+                "<br>" + document.config.script.value.replace(/(\n|\r\n)/g, '<br>')                
+                
+                document.querySelector("#result").innerHTML = printme + document.config.script.placeholder;
+            }
         </script>
 
     </head>
     <body>        
 
-        <form name="config">
+        <form name="config" id="config">
 
             <h1>Slurm batch file</h1>
             <p>Slurm batch script를 쉽게 만들기 위한 페이지입니다.</p>
@@ -111,8 +131,10 @@
             </tr>
             <tr>
                 <td>
-                    <input type="button" value="Submit" onClick="javascript:submitinfo()">
+                    <!-- <input type="button" value="Submit" onClick="javascript:submitinfo()"> -->
                     <input type="button" value="Print" onClick="javascript:printinfo()">
+                    <!-- <input type="reset" value="Reset"> -->
+                    <input type="button" value="Reset" onclick="javascript:resetinfo()">
                     <input type="button" value="Copy to Clipboard" onClick="javascript:saveinfo()">
                 </td>
                 
@@ -122,7 +144,11 @@
             <br>
             <br>
             <pre>
-                <div id="result"> </div>
+                <div id="result"> 
+                    <script>
+                        printinfo()
+                    </script>
+                </div>
             </pre>            
         </form>
         
